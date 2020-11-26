@@ -1,6 +1,6 @@
 ---
 Name: update-access-token
 ---
-Director:
+SilverStripe\Control\Director:
   rules:
     'update-access-token//$Action/$ID/$OtherID': 'AccessTokenController'
