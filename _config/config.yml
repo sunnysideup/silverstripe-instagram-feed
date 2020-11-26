@@ -1,0 +1,5 @@
+---
+Name: instgram-feed
+After:
+  - '#coreconfig'
+---

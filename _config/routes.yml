@@ -1,0 +1,6 @@
+---
+Name: update-access-token
+---
+Director:
+  rules:
+    'update-access-token//$Action/$ID/$OtherID': 'AccessTokenController'
