@@ -1,5 +1,14 @@
 <?php
 
+namespace Sunnysideup\InstagramFeed\Tasks;
+
+use BuildTask;
+use Director;
+use SiteConfig;
+use Config;
+use Email;
+
+
 //useful links:
 //https://www.instagram.com/developer/authentication/
 //https://stackoverflow.com/questions/39142374/request-instagram-api-acces-token-with-curl

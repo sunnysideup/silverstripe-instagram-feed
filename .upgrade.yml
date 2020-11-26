@@ -1,0 +1,3 @@
+mappings:
+  AccessTokenController: Sunnysideup\InstagramFeed\Control\AccessTokenController
+  UpdateInstagramAccessTokenTask: Sunnysideup\InstagramFeed\Tasks\UpdateInstagramAccessTokenTask

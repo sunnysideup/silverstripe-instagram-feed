@@ -1,5 +1,11 @@
 <?php
 
+namespace Sunnysideup\InstagramFeed\Control;
+
+use Page_Controller;
+use Injector;
+
+
 class AccessTokenController extends Page_Controller
 {
     private static $url_segment = 'update-access-token';
