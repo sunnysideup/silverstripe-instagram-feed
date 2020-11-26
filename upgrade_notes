@@ -1,0 +1,101 @@
+2020-11-26 04:03
+
+# running php upgrade upgrade see: https://github.com/silverstripe/silverstripe-upgrader
+cd /var/www/upgrades/instagram-feed
+php /var/www/ss3/upgrader/vendor/silverstripe/upgrader/bin/upgrade-code upgrade /var/www/upgrades/instagram-feed/instagram-feed  --root-dir=/var/www/upgrades/instagram-feed --write -vvv
+Writing changes for 4 files
+Running upgrades on "/var/www/upgrades/instagram-feed/instagram-feed"
+[2020-11-26 16:03:28] Applying RenameClasses to _config.php...
+[2020-11-26 16:03:28] Applying ClassToTraitRule to _config.php...
+[2020-11-26 16:03:28] Applying RenameClasses to AccessTokenController.php...
+[2020-11-26 16:03:28] Applying ClassToTraitRule to AccessTokenController.php...
+[2020-11-26 16:03:28] Applying RenameClasses to UpdateInstagramAccessTokenTask.php...
+[2020-11-26 16:03:28] Applying ClassToTraitRule to UpdateInstagramAccessTokenTask.php...
+[2020-11-26 16:03:28] Applying UpdateConfigClasses to config.yml...
+PHP Warning:  Invalid argument supplied for foreach() in /var/www/ss3/upgrader/vendor/silverstripe/upgrader/src/UpgradeRule/YML/YMLUpgradeRule.php on line 32
+[2020-11-26 16:03:28] Applying UpdateConfigClasses to routes.yml...
+modified:	src/Control/AccessTokenController.php
+@@ -2,11 +2,15 @@
+
+ namespace Sunnysideup\InstagramFeed\Control;
+
+-use Page_Controller;
+-use Injector;
+
+
+-class AccessTokenController extends Page_Controller
++use SilverStripe\Core\Injector\Injector;
++use Sunnysideup\InstagramFeed\Tasks\UpdateInstagramAccessTokenTask;
++use PageController;
++
++
++
++class AccessTokenController extends PageController
+ {
+     private static $url_segment = 'update-access-token';
+
+@@ -29,7 +33,7 @@
+      */
+     public function index($request)
+     {
+-        $devTask = Injector::inst()->get('UpdateInstagramAccessTokenTask');
++        $devTask = Injector::inst()->get(UpdateInstagramAccessTokenTask::class);
+         $response = $devTask->run($request);
+         return $response;
+     }
+
+modified:	src/Tasks/UpdateInstagramAccessTokenTask.php
+@@ -2,11 +2,17 @@
+
+ namespace Sunnysideup\InstagramFeed\Tasks;
+
+-use BuildTask;
+-use Director;
+-use SiteConfig;
+-use Config;
+-use Email;
++
++
++
++
++
++use SilverStripe\Control\Director;
++use SilverStripe\SiteConfig\SiteConfig;
++use SilverStripe\Core\Config\Config;
++use SilverStripe\Control\Email\Email;
++use SilverStripe\Dev\BuildTask;
++
+
+
+ //useful links:
+@@ -167,8 +173,8 @@
+     }
+
+     public function sendAdminErrorEmail($errorObj){
+-        $from = Config::inst()->get('Email', 'admin_email');
+-        $to = Config::inst()->get('Email', 'important_error_email');
++        $from = Config::inst()->get(Email::class, 'admin_email');
++        $to = Config::inst()->get(Email::class, 'important_error_email');
+
+         $email = new Email(
+             $from,
+
+modified:	_config/config.yml
+@@ -3,4 +3,4 @@
+ After:
+   - '#coreconfig'
+ ---
+-
++{  }
+
+modified:	_config/routes.yml
+@@ -3,5 +3,5 @@
+ ---
+ SilverStripe\Control\Director:
+   rules:
+-    'update-access-token//$Action/$ID/$OtherID': 'AccessTokenController'
++    update-access-token//$Action/$ID/$OtherID: Sunnysideup\InstagramFeed\Control\AccessTokenController
+
+
+Writing changes for 4 files
+✔✔✔

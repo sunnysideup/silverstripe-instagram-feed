@@ -3,4 +3,4 @@ Name: update-access-token
 ---
 SilverStripe\Control\Director:
   rules:
-    'update-access-token//$Action/$ID/$OtherID': 'AccessTokenController'
+    update-access-token//$Action/$ID/$OtherID: Sunnysideup\InstagramFeed\Control\AccessTokenController

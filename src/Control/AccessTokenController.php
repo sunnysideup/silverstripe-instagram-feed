@@ -2,11 +2,15 @@
 
 namespace Sunnysideup\InstagramFeed\Control;
 
-use Page_Controller;
-use Injector;
 
 
-class AccessTokenController extends Page_Controller
+use SilverStripe\Core\Injector\Injector;
+use Sunnysideup\InstagramFeed\Tasks\UpdateInstagramAccessTokenTask;
+use PageController;
+
+
+
+class AccessTokenController extends PageController
 {
     private static $url_segment = 'update-access-token';
 
@@ -29,7 +33,7 @@ class AccessTokenController extends Page_Controller
      */
     public function index($request)
     {
-        $devTask = Injector::inst()->get('UpdateInstagramAccessTokenTask');
+        $devTask = Injector::inst()->get(UpdateInstagramAccessTokenTask::class);
         $response = $devTask->run($request);
         return $response;
     }

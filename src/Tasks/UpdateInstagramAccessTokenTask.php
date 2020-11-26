@@ -2,11 +2,17 @@
 
 namespace Sunnysideup\InstagramFeed\Tasks;
 
-use BuildTask;
-use Director;
-use SiteConfig;
-use Config;
-use Email;
+
+
+
+
+
+use SilverStripe\Control\Director;
+use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\Dev\BuildTask;
+
 
 
 //useful links:
@@ -167,8 +173,8 @@ class UpdateInstagramAccessTokenTask extends BuildTask
     }
 
     public function sendAdminErrorEmail($errorObj){
-        $from = Config::inst()->get('Email', 'admin_email');
-        $to = Config::inst()->get('Email', 'important_error_email');
+        $from = Config::inst()->get(Email::class, 'admin_email');
+        $to = Config::inst()->get(Email::class, 'important_error_email');
 
         $email = new Email(
             $from,
