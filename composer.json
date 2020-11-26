@@ -18,7 +18,9 @@
             "role": "lead developer"
         }
     ],
-    "require": [],
+    "require": {
+        "silverstripe/recipe-cms": "^4.4"
+    },
     "autoload": {
         "psr-4": {
             "Sunnysideup\\InstgramFeed\\": "src/"
