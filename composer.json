@@ -23,7 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Sunnysideup\\InstgramFeed\\": "src/"
+            "Sunnysideup\\InstgramFeed\\": "src/",
+            "Sunnysideup\\InstagramFeed\\": "src/"
         }
     }
 }
