@@ -181,3 +181,4 @@ class UpdateInstagramAccessTokenTask extends BuildTask
     }
 
 }
+
